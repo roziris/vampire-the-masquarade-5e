@@ -1,0 +1,10 @@
+{
+  "description": "Manage Vampire: The Masquerade 5th Edition characters with an interactive, auto-saving character sheet and a library for easy organization and sharing.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

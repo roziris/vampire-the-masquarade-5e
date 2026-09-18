@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme inline {
+  --color-background: #0a0a0c;
+  --color-foreground: #d4d0c8;
+  --color-card: #111116;
+  --color-card-foreground: #d4d0c8;
+  --color-primary: #8b0000;
+  --color-primary-foreground: #f0ece0;
+  --color-secondary: #1a1a22;
+  --color-secondary-foreground: #9a9690;
+  --color-muted: #161620;
+  --color-muted-foreground: #6a6660;
+  --color-accent: #c41230;
+  --color-accent-foreground: #f0ece0;
+  --color-border: #2a2030;
+  --color-ring: #8b0000;
+  --radius: 2px;
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 16px;
+  color-scheme: dark;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8b0000 #111116;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track { background: #111116; }
+*::-webkit-scrollbar-thumb { background: #8b0000; border-radius: 1px; }
+
+body {
+  background-color: #0a0a0c;
+  color: #d4d0c8;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Cinzel', serif;
+}
+
+.font-display { font-family: 'Cinzel', serif; }
+.font-body { font-family: 'Crimson Pro', Georgia, serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+input, textarea, select {
+  background-color: #111116;
+  color: #d4d0c8;
+  border: 1px solid #2a2030;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #8b0000;
+  box-shadow: 0 0 0 1px #8b0000;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #3a3640;
+}
+
+.dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #6a3040;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+}
+
+.dot.filled {
+  background: #8b0000;
+  border-color: #8b0000;
+  box-shadow: 0 0 4px #8b000066;
+}
+
+.dot:hover {
+  border-color: #c41230;
+}
+
+.hunger-dot {
+  border-color: #8b0000;
+}
+
+.hunger-dot.filled {
+  background: #c41230;
+  border-color: #c41230;
+  box-shadow: 0 0 6px #c4123066;
+}
+
+.track-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid #3a3040;
+  cursor: pointer;
+  transition: all 0.1s;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.track-box.superficial {
+  border-color: #c8a050;
+  color: #c8a050;
+  background: #1a140a;
+}
+
+.track-box.aggravated {
+  border-color: #c41230;
+  color: #c41230;
+  background: #1a0a0e;
+  font-weight: 700;
+}
+
+.track-box:hover {
+  border-color: #8b0000;
+}
+
+.section-header {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8b0000;
+  border-bottom: 1px solid #2a2030;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5a5660;
+}
+
+.tab-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  color: #6a6660;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover { color: #d4d0c8; }
+
+.tab-btn.active {
+  color: #c41230;
+  border-bottom-color: #c41230;
+}
+
+.card-char {
+  background: #111116;
+  border: 1px solid #2a2030;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.card-char:hover {
+  border-color: #8b0000;
+  box-shadow: 0 0 12px #8b000033;
+}
+
+.btn-primary {
+  background: #8b0000;
+  color: #f0ece0;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border: 1px solid #8b0000;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.btn-primary:hover {
+  background: #c41230;
+  border-color: #c41230;
+  box-shadow: 0 0 8px #c4123044;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #6a6660;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid #2a2030;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-ghost:hover {
+  border-color: #8b0000;
+  color: #d4d0c8;
+}
+
+.btn-danger {
+  background: transparent;
+  color: #6a3030;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid #3a2020;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-danger:hover {
+  background: #8b0000;
+  border-color: #8b0000;
+  color: #f0ece0;
+}
+
+.ornament {
+  color: #8b0000;
+  opacity: 0.4;
+  user-select: none;
+}
