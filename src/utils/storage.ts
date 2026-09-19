@@ -1,23 +1,46 @@
 import { Character } from '../types/character';
+import { getCurrentAccount } from './auth';
 
-const PREFIX = 'v5_character_';
-const INDEX_KEY = 'v5_character_index';
+const PREFIX = 'vampire_character_';
+
+function getAccountStorageKey(): string | null {
+  const account = getCurrentAccount();
+  return account ? `${account.id}` : null;
+}
+
+function getIndexKey(): string | null {
+  const accountId = getAccountStorageKey();
+  return accountId ? `vampire_character_index_${accountId}` : null;
+}
+
+function getPrefix(): string | null {
+  const accountId = getAccountStorageKey();
+  return accountId ? `${PREFIX}${accountId}_` : null;
+}
 
 function getIndex(): string[] {
+  const key = getIndexKey();
+  if (!key) return [];
+
   try {
-    return JSON.parse(localStorage.getItem(INDEX_KEY) || '[]');
+    return JSON.parse(localStorage.getItem(key) || '[]');
   } catch {
     return [];
   }
 }
 
 function setIndex(ids: string[]) {
-  localStorage.setItem(INDEX_KEY, JSON.stringify(ids));
+  const key = getIndexKey();
+  if (!key) return;
+  localStorage.setItem(key, JSON.stringify(ids));
 }
 
 export function saveCharacter(char: Character): void {
+  const prefix = getPrefix();
+  if (!prefix) return;
+
   char.updatedAt = new Date().toISOString();
-  localStorage.setItem(PREFIX + char.id, JSON.stringify(char));
+  localStorage.setItem(prefix + char.id, JSON.stringify(char));
   const idx = getIndex();
   if (!idx.includes(char.id)) {
     setIndex([char.id, ...idx]);
@@ -25,8 +48,11 @@ export function saveCharacter(char: Character): void {
 }
 
 export function loadCharacter(id: string): Character | null {
+  const prefix = getPrefix();
+  if (!prefix) return null;
+
   try {
-    const raw = localStorage.getItem(PREFIX + id);
+    const raw = localStorage.getItem(prefix + id);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -40,7 +66,10 @@ export function loadAllCharacters(): Character[] {
 }
 
 export function deleteCharacter(id: string): void {
-  localStorage.removeItem(PREFIX + id);
+  const prefix = getPrefix();
+  if (!prefix) return;
+
+  localStorage.removeItem(prefix + id);
   setIndex(getIndex().filter(i => i !== id));
 }
 

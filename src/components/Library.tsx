@@ -1,13 +1,16 @@
 import { useRef } from 'react';
 import { Character } from '../types/character';
 import { deleteCharacter, duplicateCharacter, exportCharacter, importCharacter } from '../utils/storage';
+import { Account } from '../utils/auth';
 import { ru } from '../i18n';
 
 interface LibraryProps {
+  account: Account | null;
   characters: Character[];
   onOpen: (id: string) => void;
   onNew: () => void;
   onRefresh: () => void;
+  onLogout: () => void;
 }
 
 function formatDate(iso: string) {
@@ -33,7 +36,7 @@ function ClanGlyph({ clan }: { clan: string }) {
   );
 }
 
-export function Library({ characters, onOpen, onNew, onRefresh }: LibraryProps) {
+export function Library({ account, characters, onOpen, onNew, onRefresh, onLogout }: LibraryProps) {
   const importRef = useRef<HTMLInputElement>(null);
 
   const handleDelete = (e: React.MouseEvent, id: string) => {
@@ -87,7 +90,12 @@ export function Library({ characters, onOpen, onNew, onRefresh }: LibraryProps) 
                 {ru.kindredCount(characters.length)}
               </div>
             </div>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+              {account && (
+                <div style={{ color: '#d7d1c7', fontSize: '0.75rem', fontFamily: 'JetBrains Mono, monospace', border: '1px solid #2a2030', padding: '8px 12px', borderRadius: 999 }}>
+                  {account.username}
+                </div>
+              )}
               <button className="btn-ghost" onClick={() => importRef.current?.click()}>
                 {ru.importJson}
               </button>
@@ -95,6 +103,11 @@ export function Library({ characters, onOpen, onNew, onRefresh }: LibraryProps) 
               <button className="btn-primary" onClick={onNew}>
                 {ru.newCharacter}
               </button>
+              {account && (
+                <button className="btn-ghost" onClick={onLogout}>
+                  {ru.logoutBtn}
+                </button>
+              )}
             </div>
           </div>
         </div>
